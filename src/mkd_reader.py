@@ -9,6 +9,11 @@ def read_markdown_file(path):
         print("This is not a valid input file")
         return
     input = []
+    elem = ""
     with open(path) as datei:
-        input,append(datei.readline())
+        for line in datei.readline():
+            if not line.strip() and elem.strip():
+                input,append(elem)
+            else:
+                elem += line
     return input

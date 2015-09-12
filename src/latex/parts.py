@@ -23,6 +23,8 @@ class Heading(AbstractPart):
     subsection or subsubsection. If Level is deeper than subsubsection, a paragraph is returned. Subparagraphs are not
     available.
     Heading level is retrieved from the number of #-symbols at the beginng of the element
+
+    An Element is only interpreted as a heading, if the line starts with #-symbols. Trailing #-symbols are ignored. 
     """
     def __init__(self, text):
         super(Heading, self).__init__(text)
@@ -32,10 +34,12 @@ class Heading(AbstractPart):
         self.level = 0
 
     def _get_level(self):
-        for char in self.text:
+        text = self.text.strip().split()
+        for char in text[0]:
             if char == '#':
                 self.level += 1
-        self.prefix = "sub" * self.level-1
+        #print(self.level)
+        self.prefix = "sub" * (self.level-1)
 
     def _extract_content(self):
         self.output = self.text.replace("#","").strip()
@@ -54,6 +58,9 @@ class Paragraph(object):
     def __init__(self, arg):
         super(Paragraph, self).__init__()
         self.arg = arg
+
+    def _find_containing_markdown(self):
+        return
 
     def run_to_output(self):
         return

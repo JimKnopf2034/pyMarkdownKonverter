@@ -1,7 +1,13 @@
-from unittest import TestCase
-from ..src.latex import *
+import unittest
+import sys
+import os
 
-class TestLaTeX(TestCase):
+cwd = os.path.dirname(os.getcwd())
+sys.path.append(cwd)
+
+from src.latex import *
+
+class TestLaTeX(unittest.TestCase):
     """
     TestLaTeX
     =========
@@ -19,4 +25,10 @@ class TestLaTeX(TestCase):
     def testHeading(self):
         hd = Heading("# Das ist ein Titel #")
         print(hd.run_to_output())
+        hd = Heading("## Das ist ein untertile")
+        print(hd.run_to_output())
         return
+
+
+if __name__ == '__main__':
+    unittest.main()
