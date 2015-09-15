@@ -24,7 +24,7 @@ class Heading(AbstractPart):
     available.
     Heading level is retrieved from the number of #-symbols at the beginng of the element
 
-    An Element is only interpreted as a heading, if the line starts with #-symbols. Trailing #-symbols are ignored. 
+    An Element is only interpreted as a heading, if the line starts with #-symbols. Trailing #-symbols are ignored.
     """
     def __init__(self, text):
         super(Heading, self).__init__(text)
@@ -54,7 +54,15 @@ class Heading(AbstractPart):
 
 
 class Paragraph(object):
-    """docstring for Paragraph"""
+    """
+    Paragraph
+    =========
+
+    Information
+    -----------
+
+    A Paragraph is a textelement that can contain various other text elements, like links, inline code or decorations.
+    """
     def __init__(self, arg):
         super(Paragraph, self).__init__()
         self.arg = arg
