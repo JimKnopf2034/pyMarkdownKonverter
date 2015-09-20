@@ -53,7 +53,7 @@ class Heading(AbstractPart):
         return "\%ssection{%s}"%(self.prefix,self.output)
 
 
-class Paragraph(object):
+class Paragraph(AbstractPart):
     """
     Paragraph
     =========
@@ -62,13 +62,42 @@ class Paragraph(object):
     -----------
 
     A Paragraph is a textelement that can contain various other text elements, like links, inline code or decorations.
+    The text is processed on element creation and returned as a single string. If inline elements are found they are
+    included with LaTeX code in line.
     """
-    def __init__(self, arg):
+    def __init__(self, textelement):
         super(Paragraph, self).__init__()
-        self.arg = arg
+        self.text = textelement
+        self.__processed = False
+        self._find_containing_markdown()
 
     def _find_containing_markdown(self):
+        if not self.__processed:
+            raise ValueError
+            return
+        text = self.text.split('\n')
+        for elem in text:
+            pass
         return
+
+    def run_to_output(self):
+
+        return self.text
+
+
+class HorizontalLine(object):
+    """
+    HorizontalLine
+    ==============
+
+    Information
+    -----------
+
+    Inserts a horizontal line into the text, not sure if this is supported in LaTeX
+    """
+    def __init__(self, text):
+        super(HorizontalLine, self).__init__()
+        self.text = text
 
     def run_to_output(self):
         return

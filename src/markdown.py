@@ -33,7 +33,11 @@ class MarkDown():
 
     def parse_text(self):
         for line in self._input:
-            if line.find('#') >0:
+            print(line)
+            if line.stript().find('#') =0:
                 print("Found a heading")
                 self._structure.append(self.converter.Heading(line))
+            elif line.find('---')>=0 and line.find('---') <=3:
+                print("Found a horizontal line")
+                self._structure.append(self.converter)
         return
