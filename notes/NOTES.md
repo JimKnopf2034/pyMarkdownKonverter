@@ -16,3 +16,9 @@ Die Klasse MarkdownKonvert stellt das zentrale element dar. Dieses erstellt das 
 Das Rendern des Templates wird vom MarkdownKonvert Objekt eingeleitet.
 
 Das Kommandozeileninterface wird mittels docopt implementiert.
+
+# Reguläre Ausdrücke:
+
+Gruppen werden in Headings immer durch () erzeugt. Gruppe 0 ist das gesammte Match objekt   
+
+Headings: r"(^ {0,3}#{1,4} ?)([0-9].*?[A-Z].*)"

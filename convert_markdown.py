@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """MarkDownKonvert
 
 Usage: convert_markdown.py <markdownFile> <outFileName>
@@ -9,6 +10,7 @@ Options:
 This is a converter from Markdown to Anything, starting with LaTeX as first target format. Other formats may be added later.
 """
 from docopt import docopt
+from src import read_markdown_file, MarkDown
 
 class MarkDownKonvert(object):
     """docstring for MarkDownKonvert"""
@@ -23,6 +25,7 @@ class MarkDownKonvert(object):
         Start the conversion process
         """
         print('Welcome to MarkdownKonvert, a converter from Markdown to LaTeX')
+        md = MarkDown.toLaTex(read_markdown_file(self._input),None)
         return
 
 
