@@ -1,4 +1,10 @@
 from abc import ABCMeta, abstractmethod
+from src import inlineExp
+import re
+
+latex_inline_replace = {'Bold': r"\\textbf{%s}",
+                        'Italic':r"\\textit{%s}",
+                        'Italic bold':r"\\textit\\textbf{%s}"}
 
 class AbstractPart(metaclass=ABCMeta):
     """docstring for AbstractPart"""
@@ -66,18 +72,24 @@ class Paragraph(AbstractPart):
     included with LaTeX code in line.
     """
     def __init__(self, textelement):
-        super(Paragraph, self).__init__()
+        super(Paragraph, self).__init__(textelement)
         self.text = textelement
         self.__processed = False
         self._find_containing_markdown()
 
     def _find_containing_markdown(self):
-        if not self.__processed:
+        if self.__processed:
             raise ValueError
             return
         text = self.text.split('\n')
         for elem in text:
-            pass
+            for expr in inlineExp:
+                mo = re.search(inlineExp[expr], elem)
+                if mo is not None:
+                    insert = latex_inline_replace[expr]%mo.group(2)
+                    text[text.index(elem)] = re.sub(inlineExp[expr],insert, elem)
+        self.text = '\n'.join(text)
+        print(self.text)
         return
 
     def run_to_output(self):
