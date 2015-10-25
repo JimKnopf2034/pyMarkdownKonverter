@@ -16,7 +16,7 @@ class AbstractPart(metaclass=ABCMeta):
     def run_to_output(self):
         return
 
-class List(AbstractPart):
+class BulletList(AbstractPart):
     """
     List
     ====
@@ -54,6 +54,20 @@ class List(AbstractPart):
     def run_to_output(self):
         self._process_list()
         return "\n".join(self.output)
+
+
+class OrderedList(AbstractPart):
+    """
+    :TODO: Implement OrderedLists as enumerate
+    """
+    def __init__(self, text):
+        super().__init__(text)
+        self.text = text
+        self.output = []
+        return
+
+    def run_to_output():
+        return '\n'.join(self.output)
 
 class Heading(AbstractPart):
     """

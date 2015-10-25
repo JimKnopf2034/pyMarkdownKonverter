@@ -1,2 +1,2 @@
-from .parts import Heading, Paragraph, List
+from .parts import Heading, Paragraph, BulletList
 from .latexWriter import LaTeXWriter
