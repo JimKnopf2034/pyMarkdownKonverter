@@ -27,6 +27,6 @@ class LaTeXWriter():
         if self.__tmp_path is None:
             self._create_temp_env()
 
-        with open(self.__tmp_path+self.parent.outfilename, 'w') as out_file:
+        with open(self.__tmp_path+'/'+self.parent.outfilename, 'w') as out_file:
             out_file.write(self.template.render(data=markdown))
         return

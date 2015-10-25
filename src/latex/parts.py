@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from src import inlineExp
+from src import inlineExp, blockExp
 import re
 
 latex_inline_replace = {'Bold': r"\\textbf{%s}",
@@ -16,6 +16,44 @@ class AbstractPart(metaclass=ABCMeta):
     def run_to_output(self):
         return
 
+class List(AbstractPart):
+    """
+    List
+    ====
+
+    Information
+    -----------
+
+    Representation of a List created from markdown
+    """
+    def __init__(self, text):
+        super().__init__(text)
+        self.text = text
+        self.output = []
+        return
+
+    def _create_open_string(self):
+        self.output.append(r"\begin{itemize}")
+        return
+
+    def _create_close_string(self):
+        self.output.append('\end{itemize}')
+        return
+
+    def _process_list(self):
+        lines = self.text.split('\n')
+        self._create_open_string()
+        for elem in lines:
+            print(elem, blockExp['List'])
+            mo = re.match(blockExp['List'], elem)
+            if mo is not None:
+                self.output.append("\item %s" %mo.group(3))
+        self._create_close_string()
+        return
+
+    def run_to_output(self):
+        self._process_list()
+        return "\n".join(self.output)
 
 class Heading(AbstractPart):
     """
@@ -89,7 +127,6 @@ class Paragraph(AbstractPart):
                     insert = latex_inline_replace[expr]%mo.group(2)
                     text[text.index(elem)] = re.sub(inlineExp[expr],insert, elem)
         self.text = '\n'.join(text)
-        print(self.text)
         return
 
     def run_to_output(self):

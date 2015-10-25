@@ -40,6 +40,9 @@ class MarkDown():
                 #print("Found a heading")
                 mo = re.search(blockExp['Heading'], block)
                 self._structure.append(self.converter.Heading(mo.group(3)))
+            elif re.search(blockExp['List'], block) is not None:
+                print("Found a List element")
+                self._structure.append(self.converter.List(block))
             elif block.find('---')>=0 and block.find('---') <=3:
                 #print("Found a horizontal line")
                 pass
