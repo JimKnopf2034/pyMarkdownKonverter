@@ -12,6 +12,7 @@ This is a converter from Markdown to Anything, starting with LaTeX as first targ
 from docopt import docopt
 from src import read_markdown_file, MarkDown
 from src.latex import LaTeXWriter
+from src.config import getDefaultTemplateDir
 
 class MarkDownKonvert(object):
     """docstring for MarkDownKonvert"""
@@ -19,7 +20,7 @@ class MarkDownKonvert(object):
         super(MarkDownKonvert, self).__init__()
         self._input = args['<markdownFile>']
         self.outfilename = args['<outFileName>']
-        self.template_dir = "./templates"
+        self.template_dir = ["./templates", getDefaultTemplateDir()]
 
 
     def run(self):
@@ -27,8 +28,9 @@ class MarkDownKonvert(object):
         Start the conversion process
         """
         print('Welcome to MarkdownKonvert, a converter from Markdown to LaTeX')
-        md = MarkDown.toLaTex(read_markdown_file(self._input),None)
-        lw = LaTeXWriter(self)
+        input, config = read_markdown_file(self._input)
+        md = MarkDown.toLaTex(input)
+        lw = LaTeXWriter(self, config)
         lw.write_to_template(md.structure)
         return
 

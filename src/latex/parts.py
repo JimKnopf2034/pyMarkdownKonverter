@@ -44,7 +44,7 @@ class BulletList(AbstractPart):
         lines = self.text.split('\n')
         self._create_open_string()
         for elem in lines:
-            print(elem, blockExp['List'])
+            #print(elem, blockExp['List'])
             mo = re.match(blockExp['List'], elem)
             if mo is not None:
                 self.output.append("\item %s" %mo.group(3))

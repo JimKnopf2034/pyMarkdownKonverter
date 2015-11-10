@@ -29,13 +29,14 @@ class MarkDown():
         return
 
     @classmethod
-    def toLaTex(cls, markdown, template=None):
+    def toLaTex(cls, markdown):
         obj = MarkDown(markdown, "LaTeX")
         obj.parse_text()
         return obj
 
     def parse_text(self):
         for block in self._input:
+            #print(block)
             if re.search(blockExp['Heading'], block) is not None:
                 #print("Found a heading")
                 mo = re.search(blockExp['Heading'], block)
