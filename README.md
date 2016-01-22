@@ -15,3 +15,5 @@ As the template language jinja2 is used.
 # Dependencies
 
 The CLI is implemented with docopt in the docstring. Calling the help with -h
+
+This is just a test entry
